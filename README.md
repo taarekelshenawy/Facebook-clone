@@ -1,2 +1,2 @@
 # Facebook-clone
-A front-end clone of Facebook’s core features designed to simulate the look and feel of the original platform. This project demonstrates responsive web design, component-based UI building using Bootstrap, and DOM manipulation using JavaScript.
+This is a simple Facebook clone built with html and bootstrap and javascript . The application mimics the core features of Facebook, including user authentication, news feed, posting content, liking posts, and a basic user profile page. It is designed to help demonstrate my skills in React and frontend web development.
