@@ -54,14 +54,14 @@ function getpost(reload = true , page = 1){
                                     class="rounded-circle " style="width:50px;
                                     height:50px;
                                     cursor:pointer;
-                                      margin-right: 7px;"
+                                      margin-right: 7px; alt="author-image"
                                       onclick="showuserdetails(${item.author.id})">
                                     <span class="ml-3 fw-bold text-primary">${item.author.username}</span>
                                     ${button}
                                   
                                 </div>
                                 <div class="card-body" style="cursor:pointer" onclick="showcart(${item.id})">
-                                    <img src=${item.image} style="width:100%;margin-bottom:10px;">
+                                    <img src=${item.image} style="width:100%;margin-bottom:10px; alt="card-image">
                                     <p>${item.created_at}</p>
                                     <h4 style="border:1px solid gray;width:fit-content;border-radius:30px;padding:5px">${item.title}</h4>
                                     <p>${item.body}</p>
@@ -232,7 +232,7 @@ let user_details = document.getElementById("user_details");
       <div class="col-9 mx-auto d-flex flex-column  vh-100 mt-3">
           <div>
           <img src="./images/background.png"
-          style="width:100%;border-radius:10px; margin-bottom:30px"/>
+          style="width:100%;border-radius:10px; margin-bottom:30px" alt="home-image" />
           </div>
           <h1 style="color:blue">facebook</h1>
           <p style="font-size:22px;" >Facebook helps you connect and share with the people in your life.</p>

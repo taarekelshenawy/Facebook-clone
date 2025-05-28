@@ -24,7 +24,7 @@ function getpost(id){
                         <span class="ml-3 ">${author.username}</span>
                     </div>
                     <div class="card-body">
-                        <img src=${post.image} style="width: 100%">
+                        <img src=${post.image} style="width: 100%" alt="post-image">
                         <p>${post.created_at}</p>
                         <h4>${post.title}</h4>
                         <h6>${post.body}</h6>
@@ -57,7 +57,7 @@ function getpost(id){
      <div mb-3 >
        <img src=${item.author.profile_image}
  
-            class="rounded-circle" style="width:40px">
+            class="rounded-circle" style="width:40px" alt="author-image">
                   
                       <span style="font-weight:bold">${item.author.username}</span>
                       <p style="margin-top:10px">${item.body}</p>

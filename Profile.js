@@ -67,14 +67,14 @@ function getpost(userid){
                 <div class="card  my-4">
                     <div class="card-header">
                         <img src=${item.author.profile_image}
-                        class="rounded-circle" style="width:40px; cursor:pointer" >
+                        class="rounded-circle" style="width:40px; cursor:pointer" alt="author-image" >
                         <span class="ml-3">${item.author.username}</span>
                         ${button}
                       
                        
                     </div>
                     <div class="card-body" style="cursor:pointer" >
-                        <img src=${item.image} style="width: 100%">
+                        <img src=${item.image} style="width: 100%" alt="card-image">
                         <p>${item.created_at}</p>
                         <h4>${item.title}</h4>
                         <h6>${item.body}</h6>
