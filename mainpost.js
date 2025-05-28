@@ -2,8 +2,9 @@
 let add_post = document.getElementById("add_post");
 let modal_post = document.getElementById("modalpost");
 let delete_post = document.getElementById("delete_post");
+let container = document.getElementById("container")
 
-/////////////////////////////////////////function getpost 
+//////////////////function getpost 
 
 function getpost(id){
     axios.get(`https://tarmeezacademy.com/api/v1/posts/${id}`)
@@ -78,10 +79,8 @@ function getpost(id){
 function login(){
   let modal_id = document.getElementById("exampleModal");
   let username = document.getElementById("recipient-name");
-let password = document.getElementById("recipient-password");
+  let password = document.getElementById("recipient-password");
   let mod_img = document.getElementById("mod_img").files[0];
-
-
 
   let token = localStorage.getItem("token");
   let config = {
@@ -100,12 +99,8 @@ let password = document.getElementById("recipient-password");
     .then((response)=>{
       let token = response.data.token;
       let user = response.data.user;
-
- 
        localStorage.setItem("token",token);
        localStorage.setItem("user" , JSON.stringify(user));
-
-
         const modal = bootstrap.Modal.getInstance(modal_id);
         modal.hide();
         setupui();
@@ -126,7 +121,7 @@ let password = document.getElementById("recipient-password");
 function alertlogin(custommessage,color){
 
   const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-const appendAlert = (message, type) => {
+  const appendAlert = (message, type) => {
   const wrapper = document.createElement('div')
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
@@ -137,18 +132,11 @@ const appendAlert = (message, type) => {
 
   alertPlaceholder.append(wrapper)
 }
-
-
   appendAlert(`${custommessage}`, `${color}`)
-
-
-
-   
- 
 }
 
 
-///////////////////////////// function logout
+/////////////////// function logout
 
 function logout(){
 
@@ -158,8 +146,6 @@ function logout(){
   alertlogin("logout succesfully","danger")
   user_details.style.display="none";
     
-  
-  
   }
 
 ////////////////////////////// function register
@@ -182,11 +168,9 @@ function register(){
   formdata.append("password",password_reg.value);
   formdata.append( "name",name_reg.value);
   formdata.append("image",reg_image);
-axios.post("https://tarmeezacademy.com/api/v1/register",formdata,config
+  axios.post("https://tarmeezacademy.com/api/v1/register",formdata,config
 
-).then((response)=>{
-  
-
+  ).then((response)=>{
   
   const modal = bootstrap.Modal.getInstance(modal_reg);
   modal.hide();
@@ -224,14 +208,14 @@ let user_details = document.getElementById("user_details");
   if(token === null){
     if(add_post!=null){
       add_post.style.display="none"
-    
-
+  
     }
   
     log.style.setProperty("display", "block", "important");
     reg.style.setProperty("display", "block", "important");
     log_out.style.setProperty("display", "none", "important");
     send_comment.style.display="none";
+   
    
   
   
@@ -258,7 +242,7 @@ let user_details = document.getElementById("user_details");
 setupui()
 
 
-///////////////////////////////////////////////send comment
+//////////////send comment
 
 function sendcomment(id){
     let token = localStorage.getItem("token");
@@ -271,17 +255,17 @@ function sendcomment(id){
       
     let comment = document.getElementById("comment_value").value;
     console.log(comment)
- axios.post(`https://tarmeezacademy.com/api/v1/posts/${id}/comments`,{
+  axios.post(`https://tarmeezacademy.com/api/v1/posts/${id}/comments`,{
     "body":comment,
- },config).then((response)=>{
+  },config).then((response)=>{
  
    
     getpost()
- }).catch((response)=>{
+   }).catch((response)=>{
     let reject = response.response.data.message;
     alertlogin(reject,"danger")
 
- })
+  })
 
 }
 

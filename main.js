@@ -1,12 +1,16 @@
+
+
 let add_post = document.getElementById("add_post");
 let modal_post = document.getElementById("modalpost");
 let delete_post = document.getElementById("delete_post");
+let container = document.getElementById("container");
 
 if(add_post!=null){
 add_post.style.display="none"
 }
 
-///////////////////////////////////// pagination
+
+//////////pagination
 let currentpage = 5;
 let lastpage = 1;
 window.addEventListener("scroll", function(){
@@ -19,7 +23,7 @@ getpost(false,currentpage)
 }
 });
 
-/////////////////////////////////////////function getposts 
+///////////function getposts 
 function getpost(reload = true , page = 1){
   let container = document.getElementById("container");
   axios.get(`https://tarmeezacademy.com/api/v1/posts?limit=15&page=${page}`)
@@ -39,50 +43,60 @@ function getpost(reload = true , page = 1){
             <button type="button" class="btn btn-secondary" style=" margin-right:10px; float:right" onclick="editpost('${encodeURIComponent(JSON.stringify(item))}')">Edit</button>`;
 
           }
-  
-    container.innerHTML+=` <div class="d-flex justify-content-center">
-            <div class="col-8 " >
-                <div class="card  my-4">
-                    <div class="card-header bg-dark-subtle">
-                        <img src=${item.author.profile_image}
-                        class="rounded-circle " style="width:50px;
-                         height:50px;
-                         cursor:pointer;
-                         	margin-right: 7px;"
-                           onclick="showuserdetails(${item.author.id})">
-                        <span class="ml-3">${item.author.username}</span>
-                        ${button}
-                       
-                    </div>
-                    <div class="card-body" style="cursor:pointer" onclick="showcart(${item.id})">
-                        <img src=${item.image} style="width:100%;margin-bottom:10px;">
-                        <p>${item.created_at}</p>
-                        <h4>${item.title}</h4>
-                        <p>${item.body}</p>
-        
-                        <hr>
-                      <div >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                            <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-                          </svg>
-                        <span>${item.comments_count} comments</span>
-                      </div>
-                       
-                    </div>
-                  </div>
+     
+             container.innerHTML+=` 
+    
+                    <div class="d-flex justify-content-center">
+                        <div class="col-9" >
+                            <div class="card  my-4">
+                                <div class="card-header bg-dark-subtle">
+                                    <img src=${item.author.profile_image}
+                                    class="rounded-circle " style="width:50px;
+                                    height:50px;
+                                    cursor:pointer;
+                                      margin-right: 7px;"
+                                      onclick="showuserdetails(${item.author.id})">
+                                    <span class="ml-3 fw-bold text-primary">${item.author.username}</span>
+                                    ${button}
+                                  
+                                </div>
+                                <div class="card-body" style="cursor:pointer" onclick="showcart(${item.id})">
+                                    <img src=${item.image} style="width:100%;margin-bottom:10px;">
+                                    <p>${item.created_at}</p>
+                                    <h4 style="border:1px solid gray;width:fit-content;border-radius:30px;padding:5px">${item.title}</h4>
+                                    <p>${item.body}</p>
+                    
+                                    <hr>
+                                  <div >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                        <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
+                                      </svg>
+                                    <span>${item.comments_count} comments</span>
+                                  </div>
+                                  
+                                </div>
+                              </div>
 
+                            </div>
                 </div>
-                </div>`
+    
+    `
+         
+   
+
+
+
+
    }
  
     })
 }
 
-//////////////////////////////////////////function login
+/////////////function login
 function login(){
   let modal_id = document.getElementById("exampleModal");
   let username = document.getElementById("recipient-name");
-let password = document.getElementById("recipient-password");
+  let password = document.getElementById("recipient-password");
   let mod_img = document.getElementById("mod_img").files[0];
 
   let token = localStorage.getItem("token");
@@ -95,14 +109,13 @@ let password = document.getElementById("recipient-password");
   
   let formdata = new FormData();
   formdata.append( "username",username.value);
-  formdata.append(  "password",password.value);
+  formdata.append( "password",password.value);
   formdata.append("image",mod_img);
   
     axios.post("https://tarmeezacademy.com/api/v1/login",formdata,config)
     .then((response)=>{
-      let token = response.data.token;
-      let user = response.data.user;
-
+       let token = response.data.token;
+       let user = response.data.user;
        localStorage.setItem("token",token);
        localStorage.setItem("user" , JSON.stringify(user));
 
@@ -120,13 +133,11 @@ let password = document.getElementById("recipient-password");
 
 }
 
-
-////////////////////////// function alert login 
-
+/////////// function alert login 
 function alertlogin(custommessage,color){
 
   const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-const appendAlert = (message, type) => {
+  const appendAlert = (message, type) => {
   const wrapper = document.createElement('div')
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
@@ -138,13 +149,11 @@ const appendAlert = (message, type) => {
   alertPlaceholder.append(wrapper)
 }
 
-
   appendAlert(`${custommessage}`, `${color}`)
 
 }
 
-///////////////////////////// function logout
-
+/////// function logout
 function logout(){
 
 localStorage.removeItem("token");
@@ -152,22 +161,18 @@ localStorage.removeItem("token");
 setupui()
 alertlogin("logout succesfully","success")
 user_details.style.display="none";
-let container = document.querySelector("#container");
-container.innerHTML="";
+
 
 }
 
-
-////////////////////////////// function register
-
+///// function register
 function register(){
-
+ 
   let username_reg = document.getElementById("register-username");
   let password_reg = document.getElementById("register-password");
   let name_reg = document.getElementById("register-name");
   let reg_image = document.getElementById("register-image").files[0];
   let modal_reg = document.getElementById("Modalregister");
-
 
   let config = {
     headers: {
@@ -201,11 +206,10 @@ axios.post("https://tarmeezacademy.com/api/v1/register",formdata,config
 })
 }
 
-/////////////////////////// function setup ui
-
+///////// function setup ui
 function setupui(){
 
-  let log = document.getElementById("log-btn");
+ let log = document.getElementById("log-btn");
 let reg = document.getElementById("reg-btn");
 let log_out = document.getElementById("logout-btn");
 let user_img = document.getElementById("user_image");
@@ -217,16 +221,28 @@ let user_details = document.getElementById("user_details");
   let user = JSON.parse(localStorage.getItem("user"));
 
   if(token === null){
-    if(add_post!=null){
-      add_post.style.display="none";
-    }
+      if(add_post!=null){
+        add_post.style.display="none";
+      }
   
-    log.style.setProperty("display", "block", "important");
-    reg.style.setProperty("display", "block", "important");
-    log_out.style.setProperty("display", "none", "important");
+      log.style.setProperty("display", "block", "important");
+      reg.style.setProperty("display", "block", "important");
+      log_out.style.setProperty("display", "none", "important");
+       container.innerHTML=`
+      <div class="col-9 mx-auto d-flex flex-column  vh-100 mt-3">
+          <div>
+          <img src="./images/background.png"
+          style="width:100%;border-radius:10px; margin-bottom:30px"/>
+          </div>
+          <h1 style="color:blue">facebook</h1>
+          <p style="font-size:22px;" >Facebook helps you connect and share with the people in your life.</p>
+      </div>
+      `
+     
   
-  
-  }else{
+  }
+  else
+  {
     log.style.display="none";
     reg.style.display="none";
     log_out.style.setProperty("display", "block", "important");
@@ -234,22 +250,22 @@ let user_details = document.getElementById("user_details");
       add_post.style.display="block";
 
     }
-    user_details.style.display="block";
+      user_details.style.display="block";
       user_img.src = user.profile_image;
-   name_of_user.innerHTML=user.name;
+      name_of_user.innerHTML=user.name;
+      getpost()
    
   }
 }
 
 setupui();
-getpost();
 
 
-///////////////////////////////////////////// Add Post
+/////////// Add Post
 
 function addpost(){
 
-  let post_title = document.getElementById("post_title");
+let post_title = document.getElementById("post_title");
 let post_body = document.getElementById("post_body");
 let post_image = document.getElementById("post_image").files[0];
 
@@ -272,13 +288,13 @@ let post_image = document.getElementById("post_image").files[0];
      url ="https://tarmeezacademy.com/api/v1/posts";
     
 
-  }else{
+  }
+  else{
      url =`https://tarmeezacademy.com/api/v1/posts/${post}`;
     form.append("_method","put");
    
 
   }
-
   axios.post(url,form,config)
   .then((response)=>{
  
@@ -292,22 +308,22 @@ let post_image = document.getElementById("post_image").files[0];
  
 }
 
-/////////////////// function showcart()
+////// function showcart()
 
 function showcart(postid){
   
 window.location = `postdetails.html?postId=${postid}`
 }
 
-//////////////////////// function editpost
+///////// function editpost
 
 function editpost(postobject){
 
   let post = JSON.parse(decodeURIComponent(postobject));
 
-  let postmodal = new bootstrap.Modal(document.getElementById("modalpost"));
-  postmodal.toggle();
-  document.getElementById("createtitle").innerHTML="Edit post";
+    let postmodal = new bootstrap.Modal(document.getElementById("modalpost"));
+    postmodal.toggle();
+   document.getElementById("createtitle").innerHTML="Edit post";
     document.getElementById("createbutton").innerHTML="Edit";
     document.getElementById("post_title").value=post.title;
     document.getElementById("post_body").value=post.body;
@@ -315,19 +331,17 @@ function editpost(postobject){
 
 }
 
-////////////////////////function createpost 
+///////function createpost 
 
 function createpost(){
- 
   let modal = new bootstrap.Modal(document.getElementById("modalpost"));
   modal.toggle();
   document.getElementById("createtitle").innerHTML="create post";
   document.getElementById("createbutton").innerHTML="create";
-  
   document.getElementById("post-id-input").value="";
 }
 
-/////////////////////////////////// function handledeletepost 
+/////// function handledeletepost 
 function handledeletepost(postobject){
   let post = JSON.parse(decodeURIComponent(postobject));
   let modal = new bootstrap.Modal(document.getElementById("delete_post"));
@@ -336,7 +350,7 @@ function handledeletepost(postobject){
  
 }
 
-/////////////////////////////////// function delete post 
+///////////// function delete post 
 function deletepost(){
 
   let delete_id = document.getElementById("delete_id").value;
@@ -350,7 +364,6 @@ function deletepost(){
   }
   axios.delete(`https://tarmeezacademy.com/api/v1/posts/${delete_id}`,config)
   .then((response)=>{
-
     const modal = bootstrap.Modal.getInstance(deletes);
     modal.hide();
     getpost()
@@ -358,7 +371,7 @@ function deletepost(){
 
 }
 
-///////////////////////////////////// function showuserdetails
+////////// function showuserdetails
 
 function showuserdetails(userid){
 

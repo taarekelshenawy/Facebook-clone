@@ -20,7 +20,7 @@ let delete_post = document.getElementById("delete_post");
 
 
 setupui()
-getpost()
+
 
 function getpost(userid){
 
@@ -31,18 +31,17 @@ function getpost(userid){
   let postsnumber = document.getElementById("postsnumber");
   let commentnumber = document.getElementById("commentsnumber");
 
-   let id = userid;
+ let id = userid;
   axios.get(`https://tarmeezacademy.com/api/v1/users/${id}`)
   .then((response)=>{
-    
    let user_account = response.data.data;
    
-  user_profile.src = user_account.profile_image;
-  email.innerHTML = user_account.email;
- namee.innerHTML =user_account.name; 
-  usernamee.innerHTML =user_account.username;
-  postsnumber.innerHTML =user_account.posts_count;
-  commentnumber.innerHTML =user_account.comments_count;
+    user_profile.src = user_account.profile_image;
+    email.innerHTML = user_account.email;
+    namee.innerHTML =user_account.name; 
+    usernamee.innerHTML =user_account.username;
+    postsnumber.innerHTML =user_account.posts_count;
+    commentnumber.innerHTML =user_account.comments_count;
   userdetails(id)
   })
 
@@ -89,9 +88,6 @@ function getpost(userid){
                         
                       </div>
                        
-                     
-       
-                     
                     </div>
                   </div>
 
@@ -103,17 +99,12 @@ function getpost(userid){
 
     }
        
-    
-     
-
-//////////////////////////////////////////function login
+//////////////function login
 function login(){
   let modal_id = document.getElementById("exampleModal");
   let username = document.getElementById("recipient-name");
-let password = document.getElementById("recipient-password");
+  let password = document.getElementById("recipient-password");
   let mod_img = document.getElementById("mod_img").files[0];
-
-
 
   let token = localStorage.getItem("token");
   let config = {
@@ -132,11 +123,8 @@ let password = document.getElementById("recipient-password");
     .then((response)=>{
       let token = response.data.token;
       let user = response.data.user;
-
- 
        localStorage.setItem("token",token);
        localStorage.setItem("user" , JSON.stringify(user));
-
 
         const modal = bootstrap.Modal.getInstance(modal_id);
         modal.hide();
@@ -144,7 +132,6 @@ let password = document.getElementById("recipient-password");
         alertlogin("login succesfully","success");
         getpost();
         
-
     }).catch((response)=>{
       let reject = response.response.data.message;
       alertlogin(reject,"danger");
@@ -153,14 +140,11 @@ let password = document.getElementById("recipient-password");
 
 }
 
-
-
-////////////////////////// function alert login 
+///////////////function alert login 
 
 function alertlogin(custommessage,color){
-
   const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
-const appendAlert = (message, type) => {
+  const appendAlert = (message, type) => {
   const wrapper = document.createElement('div')
   wrapper.innerHTML = [
     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
@@ -171,23 +155,14 @@ const appendAlert = (message, type) => {
 
   alertPlaceholder.append(wrapper)
 }
-
-
   appendAlert(`${custommessage}`, `${color}`)
 
-
-
-   
- 
 }
 
-
-
-///////////////////////////// function logout
+////////////////// function logout
 
 function logout(){
-
-  localStorage.removeItem("token");
+    localStorage.removeItem("token");
    localStorage.removeItem("user");
   setupui()
   alertlogin("logout succesfully","danger");
@@ -195,7 +170,7 @@ function logout(){
   }
  
 
-////////////////////////////// function register
+///////////////// function register
 
 function register(){
 
@@ -220,11 +195,8 @@ axios.post("https://tarmeezacademy.com/api/v1/register",formdata,config
 
 ).then((response)=>{
   
-
-  
   const modal = bootstrap.Modal.getInstance(modal_reg);
   modal.hide();
-
   let token = response.data.token;
   let user = response.data.user;
    localStorage.setItem("token",token);
@@ -237,28 +209,25 @@ axios.post("https://tarmeezacademy.com/api/v1/register",formdata,config
  
 })
 }
-/////////////////////////// function setup ui
+////////////////// function setup ui
 
 function setupui(){
 
   let log =document.getElementById("log-btn");
-let reg = document.getElementById("reg-btn");
-let log_out = document.getElementById("logout-btn");
-let user_img = document.getElementById("user_image");
-let name_of_user = document.getElementById("name_of_user");
-
-let user_details = document.getElementById("user_details");
+  let reg = document.getElementById("reg-btn");
+  let log_out = document.getElementById("logout-btn");
+  let user_img = document.getElementById("user_image");
+  let name_of_user = document.getElementById("name_of_user");
+  let user_details = document.getElementById("user_details");
 
   let token = localStorage.getItem("token");
 
   let user = JSON.parse(localStorage.getItem("user"));
   
-
   if(token === null){
     if(add_post!=null){
       add_post.style.display="none"
-    
-
+  
     }
   
     log.style.setProperty("display", "block", "important");
@@ -267,32 +236,28 @@ let user_details = document.getElementById("user_details");
     user_details.style.display="none";
   
   
+  
   }else{
     log.style.display="none";
     reg.style.display="none";
     log_out.style.setProperty("display", "block", "important");
     if(add_post!=null){
       add_post.style.display="block";
-
     }
-    
     user_details.style.display="block";
     let user_image = user.profile_image;
     user_img.src = user_image;
-   
-   name_of_user.innerHTML=user.name;
+    name_of_user.innerHTML=user.name;
    
   }
 }
 
 
-/////////////////////////////////// function deletepost 
+/////////////// function deletepost 
 function deletepost(postobject){
   let post = JSON.parse(decodeURIComponent(postobject));
   let modal = new bootstrap.Modal(document.getElementById("delete_post"));
   modal.toggle();
- 
-
   document.getElementById("delete_id").value =post.id;
  
 }
@@ -332,68 +297,65 @@ function profileuser(){
 
   //////////////////
   
-function addpost(){
-  let post_title = document.getElementById("post_title");
-let post_body = document.getElementById("post_body");
-let post_image = document.getElementById("post_image").files[0];
+  function addpost(){
+      let post_title = document.getElementById("post_title");
+    let post_body = document.getElementById("post_body");
+    let post_image = document.getElementById("post_image").files[0];
 
 
-  let post = document.getElementById("post-id-input").value;
-  let iscreate = post == null || post==""
-  
+      let post = document.getElementById("post-id-input").value;
+      let iscreate = post == null || post==""
+      
 
-  const form = new FormData();
-  form.append("title",post_title.value);
-  form.append("image",post_image);
-  form.append("body", post_body.value);
-let token = localStorage.getItem("token");
-  let config = {
-    headers: {
-       'Content-Type': 'multipart/form-data',
-      "Authorization": `Bearer ${token}`,
-    }
-  }
-  let url=""
-  if(iscreate){
-     url ="https://tarmeezacademy.com/api/v1/posts";
+      const form = new FormData();
+      form.append("title",post_title.value);
+      form.append("image",post_image);
+      form.append("body", post_body.value);
+    let token = localStorage.getItem("token");
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          "Authorization": `Bearer ${token}`,
+        }
+      }
+      let url=""
+      if(iscreate){
+        url ="https://tarmeezacademy.com/api/v1/posts";
+        
+
+      }else{
+        url =`https://tarmeezacademy.com/api/v1/posts/${post}`;
+        form.append("_method","put");
+      
+
+      }
+
+      axios.post(url,form,config)
+      .then((response)=>{
+      console.log(response.data)
+      const modal = bootstrap.Modal.getInstance(modal_post);
+      modal.hide();
+      getpost()
+      window.location.reload()
     
-
-  }else{
-     url =`https://tarmeezacademy.com/api/v1/posts/${post}`;
-    form.append("_method","put");
-   
-
+    
+    
+      }
+    )
+    
   }
-
-  axios.post(url,form,config)
-  .then((response)=>{
-   console.log(response.data)
-  const modal = bootstrap.Modal.getInstance(modal_post);
-  modal.hide();
-  getpost()
-  window.location.reload()
- 
- 
- 
-  }
- )
- 
-}
 
 
 ///////////////////
 function editpost(postobject){
   let post = JSON.parse(decodeURIComponent(postobject));
-
   let postmodal = new bootstrap.Modal(document.getElementById("modalpost"));
   postmodal.toggle();
-  document.getElementById("createtitle").innerHTML="Edit post";
+   document.getElementById("createtitle").innerHTML="Edit post";
     document.getElementById("createbutton").innerHTML="Edit";
     document.getElementById("post_title").value=post.title;
     document.getElementById("post_body").value=post.body;
     document.getElementById("post-id-input").value=post.id;
-
-
 }
 
 
